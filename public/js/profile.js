@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- DEPLOYMENT FIX ---
   // !! REPLACE THIS with your actual Render backend URL
-  const BACKEND_HOST = "my-chat-backend.onrender.com";
+  const BACKEND_HOST = "chatapp-9gjc.onrender.com";
   // --- END FIX ---
 
   // 3. Populate Form Function

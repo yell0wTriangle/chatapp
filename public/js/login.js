@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- DEPLOYMENT FIX ---
   // !! REPLACE THIS with your actual Render backend URL
-  const BACKEND_URL = "https://my-chat-backend.onrender.com";
+  const BACKEND_URL = "https://chatapp-9gjc.onrender.com";
   // --- END FIX ---
 
   let currentMode = "login"; // 'login' or 'signup'
