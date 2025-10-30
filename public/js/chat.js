@@ -27,10 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- DEPLOYMENT FIX ---
-  // !! REPLACE THIS with your actual Render backend URL
+  // !! This is your actual Render backend URL (hostname only)
   const BACKEND_HOST = "chatapp-9gjc.onrender.com";
 
   // Use the new backend host for the WebSocket connection
+  // This correctly creates: wss://chatapp-9gjc.onrender.com
   socket = new WebSocket(`wss://${BACKEND_HOST}?token=${token}`);
   // --- END FIX ---
 

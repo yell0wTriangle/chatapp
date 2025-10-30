@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordIcon = document.getElementById("password-icon");
 
   // --- DEPLOYMENT FIX ---
-  // !! REPLACE THIS with your actual Render backend URL
-  const BACKEND_URL = "https://chatapp-9gjc.onrender.com";
+  // !! This is your actual Render backend URL (hostname only)
+  const BACKEND_HOST = "chatapp-9gjc.onrender.com";
   // --- END FIX ---
 
   let currentMode = "login"; // 'login' or 'signup'
@@ -84,7 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // --- DEPLOYMENT FIX ---
       // Use the absolute URL for the fetch call
-      const response = await fetch(BACKEND_URL + endpoint, {
+      // This correctly creates: https://chatapp-9gjc.onrender.com/api/login
+      const response = await fetch(`https://${BACKEND_HOST}` + endpoint, {
         // --- END FIX ---
         method: "POST",
         headers: { "Content-Type": "application/json" },
