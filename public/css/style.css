@@ -1,0 +1,24 @@
+/*
+ * public/css/style.css
+ * Extracted from the <style> block in your original HTML.
+ */
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.maths-grid {
+  background-image: linear-gradient(
+      to right,
+      theme("colors.grid-green") 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, theme("colors.grid-green") 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  background-position: center center;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ChatApp - Login (Readers-Writers)</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#10b981",
+              "background-dark": "#101922",
+              "grid-green": "rgba(4, 255, 129, 0.05)",
+              "accent-green": "#10b981",
+            },
+            fontFamily: { display: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="font-display">
+    <div
+      class="relative flex min-h-screen w-full flex-col items-center justify-center bg-[#0d151c] group/design-root overflow-x-hidden p-4"
+    >
+      <div class="absolute inset-0 maths-grid"></div>
+      <div
+        class="relative z-10 flex flex-col items-center justify-center w-full"
+      >
+        <h1 class="text-3xl font-bold tracking-tight text-white pb-6 pt-6">
+          Readers-Writers Chat
+        </h1>
+
+        <form
+          id="auth-form"
+          class="w-full max-w-md rounded-xl bg-[#111A22]/80 backdrop-blur-sm border border-white/10 shadow-lg p-6 md:p-8"
+        >
+          <div class="flex flex-col gap-6">
+            <div
+              class="flex h-10 w-full items-center justify-center rounded-lg bg-[#233648]/50 p-1"
+            >
+              <label
+                class="flex h-full flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg px-2 text-sm font-medium leading-normal text-[#92ADC9] has-[:checked]:bg-[#101922] has-[:checked]:text-white has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.1)]"
+              >
+                <span class="truncate">Log In</span>
+                <input
+                  checked=""
+                  class="invisible w-0"
+                  name="auth-toggle"
+                  type="radio"
+                  value="login"
+                />
+              </label>
+              <label
+                class="flex h-full flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg px-2 text-sm font-medium leading-normal text-[#92ADC9] has-[:checked]:bg-[#101922] has-[:checked]:text-white has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.1)]"
+              >
+                <span class="truncate">Sign Up</span>
+                <input
+                  class="invisible w-0"
+                  name="auth-toggle"
+                  type="radio"
+                  value="signup"
+                />
+              </label>
+            </div>
+
+            <div class="flex flex-col gap-4">
+              <label class="flex flex-col flex-1">
+                <p class="text-sm font-medium leading-normal pb-2 text-white">
+                  Email
+                </p>
+                <input
+                  id="email"
+                  name="email"
+                  class="form-input flex w-full min-w-0 flex-1 rounded-lg border border-[#324d67] bg-[#192633] px-4 py-2.5 text-base text-white placeholder:text-[#92adc9] focus:border-accent-green focus:outline-0 focus:ring-2 focus:ring-accent-green/20"
+                  placeholder="e.g., writer@example.com"
+                  value=""
+                  required
+                />
+              </label>
+              <label class="flex flex-col flex-1">
+                <div class="flex items-baseline justify-between pb-2">
+                  <p class="text-sm font-medium leading-normal text-white">
+                    Password
+                  </p>
+                  <span class="text-xs text-slate-400">(use 'password')</span>
+                </div>
+                <div class="flex w-full flex-1 items-stretch">
+                  <input
+                    id="password"
+                    name="password"
+                    class="form-input flex w-full min-w-0 flex-1 rounded-l-lg border border-[#324d67] bg-[#192633] p-2.5 pl-4 text-base text-white placeholder:text-[#92adc9] focus:border-accent-green focus:outline-0 focus:ring-2 focus:ring-accent-green/20"
+                    placeholder="Enter your password"
+                    type="password"
+                    value=""
+                    required
+                  />
+                  <button
+                    type="button"
+                    id="toggle-password"
+                    class="flex items-center justify-center rounded-r-lg border border-l-0 border-[#324d67] bg-[#192633] px-3 text-[#92adc9]"
+                  >
+                    <span
+                      id="password-icon"
+                      class="material-symbols-outlined text-xl"
+                      >visibility</span
+                    >
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <!-- Role Selector (Sign Up only) -->
+            <div
+              id="role-selector-container"
+              class="flex flex-col gap-3 hidden"
+            >
+              <p class="text-sm font-medium leading-normal text-white">
+                Select Your Role
+              </p>
+              <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <label
+                  class="group/role flex cursor-pointer flex-col gap-2 rounded-xl border-2 border-[#324d67] bg-transparent p-4 has-[:checked]:border-accent-green has-[:checked]:bg-accent-green/10"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-slate-300 group-has-[:checked]/role:bg-accent-green group-has-[:checked]/role:text-white"
+                    >
+                      <span class="material-symbols-outlined">visibility</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Reader</h3>
+                    <input
+                      class="invisible h-0 w-0"
+                      name="role-selector"
+                      type="radio"
+                      value="Reader"
+                      checked
+                    />
+                  </div>
+                  <p class="text-sm text-slate-400">
+                    Join to view conversations and follow discussions.
+                  </p>
+                </label>
+                <label
+                  class="group/role flex cursor-pointer flex-col gap-2 rounded-xl border-2 border-[#324d67] bg-transparent p-4 has-[:checked]:border-accent-green has-[:checked]:bg-accent-green/10"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-slate-300 group-has-[:checked]/role:bg-accent-green group-has-[:checked]/role:text-white"
+                    >
+                      <span class="material-symbols-outlined">edit</span>
+                    </div>
+                    <h3 class="font-semibold text-white">Writer</h3>
+                    <input
+                      class="invisible h-0 w-0"
+                      name="role-selector"
+                      type="radio"
+                      value="Writer"
+                    />
+                  </div>
+                  <p class="text-sm text-slate-400">
+                    Join to actively participate and send messages.
+                  </p>
+                </label>
+              </div>
+            </div>
+
+            <button
+              id="submit-button"
+              type="submit"
+              class="flex h-12 w-full items-center justify-center rounded-lg bg-accent-green px-6 text-base font-semibold text-white shadow-lg transition-all hover:bg-accent-green/90 focus:outline-none focus:ring-2 focus:ring-accent-green/50"
+            >
+              Enter Chat
+            </button>
+
+            <div
+              id="error-message"
+              class="text-red-400 text-sm text-center hidden"
+            ></div>
+          </div>
+        </form>
+
+        <div class="pt-6 text-center">
+          <p class="text-xs text-slate-400">
+            Test users: <strong>writer@example.com</strong> or
+            <strong>reader@example.com</strong> (pw: 'password')
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="/js/login.js"></script>
+  </body>
+</html>
